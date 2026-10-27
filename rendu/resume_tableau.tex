@@ -1,0 +1,204 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{braket}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+\title{\textbf{Interférence Quantique et Effet Hong-Ou-Mandel}\\ \large Synthèse d'une liaison Terre-Satellite (Notes de la session du 13 mai)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+% =============================================
+\section{États de photon et Lame Séparatrice (BS)}
+% =============================================
+
+\subsection{Normalisation et état du photon}
+Un photon émis à l'instant $t$ est décrit par sa fonction d'onde temporelle $\psi(t)$,
+qui obéit à la condition de normalisation :
+\begin{equation}
+    \int |\psi(t)|^2 \, dt = 1
+\end{equation}
+
+
+\subsection{Action de la Séparatrice (Beam Splitter)}
+La lame séparatrice 50/50 couple les modes d'entrée $a$ et $b$ vers les modes de
+sortie $c$ et $d$. Les relations de transformation pour les états temporels s'écrivent :
+\begin{align}
+    \hat{BS} \ket{t}_a &= \frac{1}{\sqrt{2}}\left(\ket{t}_c + \ket{t}_d\right) \\
+    \hat{BS} \ket{t}_b &= \frac{1}{\sqrt{2}}\left(\ket{t}_c - \ket{t}_d\right)
+\end{align}
+Le signe ``$-$'' associé au mode $b$ traduit le déphasage à la réflexion,
+responsable de l'interférence destructive.
+
+% =============================================
+\section{Interférence à deux photons et Effet HOM}
+% =============================================
+
+\subsection{État entrant et dynamique de sortie}
+L'état bipartite entrant est $\ket{\psi_a}\otimes\ket{\psi_b}$, avec un photon
+dans chaque bras. Après passage par la lame séparatrice, l'état global se sépare
+en deux types de contributions (Voir Dm) :
+\begin{equation}
+    \ket{\Psi_{\rm out}} \propto
+    \underbrace{\ket{2_t,0}_{c,d} - \ket{0,2_t}_{c,d}}_{\text{Bunching (Groupement)}}
+    + \underbrace{\ket{1_t}_c \ket{1_{t'}}_d - \ket{1_{t'}}_c \ket{1_t}_d}_{\text{Coïncidence}}
+\end{equation}
+La composante de \textbf{coïncidence} (photons séparés dans les bras $c$ et $d$),
+correctement normalisée, s'écrit :
+\begin{equation}
+    \ket{\Psi}_{\text{coïncidence}} = \frac{1}{2} \int \left[\tilde{\psi}(t)\psi(t') - \tilde{\psi}(t')\psi(t)\right] \ket{t,t'}_{c,d} \, dt \, dt'
+\end{equation}
+
+\subsection{Taux de coïncidences $I(\tau)$ et Visibilité}
+Le taux de coïncidences (probabilité de mesurer un photon en $c$ et un en $d$) est :
+\begin{equation}
+    \boxed{ I(\tau) = \frac{1}{2} \int dt \, dt' \,
+    \left|\tilde{\psi}(t)\psi(t') - \tilde{\psi}(t')\psi(t)\right|^2 }
+\end{equation}
+Pour $\tau = 0$ (photons indiscernables), $I(0) = 0$ : c'est le \textbf{deep de Hong-Ou-Mandel}.
+
+La \textbf{visibilité} $\mathcal{V}$ de l'interférence est définie par le contraste entre
+le maximum et le minimum du taux de coïncidences :
+\begin{equation}
+    \mathcal{V} = \frac{I_{\min}}{I_{\max} + I_{\min}}
+    = \left|\int \psi(t)\,\tilde{\psi}^*(t) \, dt\right|^2
+\end{equation}
+$\mathcal{V} = 1$ pour des photons parfaitement indiscernables, $\mathcal{V} = 0$ pour
+des photons orthogonaux.
+
+% =============================================
+\section{Effet Doppler Relativiste (Liaison Satellite)}
+% =============================================
+
+Afin de maintenir l'indiscernabilité pour un photon provenant d'un satellite en mouvement,
+il est nécessaire de corriger l'effet Doppler relativiste.
+
+\subsection{Transformation de Lorentz}
+Pour un satellite se déplaçant à la vitesse $v$ par rapport à la station sol
+($\beta = v/c$), le facteur de Lorentz est :
+\begin{equation}
+    \gamma = \frac{1}{\sqrt{1 - \beta^2}}
+\end{equation}
+Le passage des coordonnées terrestres $(t, x)$ aux coordonnées du satellite $(t', x')$
+s'effectue via la transformation de Lorentz :
+\begin{equation}
+    \begin{cases}
+        t' = \gamma\!\left(t - \dfrac{\beta x}{c}\right) \\[6pt]
+        x' = \gamma(x - \beta c t)
+    \end{cases}
+    \quad \longleftrightarrow \quad
+    \begin{cases}
+        t = \gamma\!\left(t' + \dfrac{\beta x'}{c}\right) \\[6pt]
+        x = \gamma(x' + \beta c t')
+    \end{cases}
+\end{equation}
+
+\subsection{Dilatation temporelle du délai de propagation}
+Le retard de propagation $\tau = x/c - t$ observé depuis la Terre, exprimé dans
+le référentiel du satellite, devient :
+\begin{align}
+    \tau &= \frac{\gamma(1+\beta)}{c}\,x' - \gamma(1+\beta)\,t'
+         = \sqrt{\frac{1+\beta}{1-\beta}}\left(\frac{x'}{c} - t'\right)
+\end{align}
+Ainsi, le délai apparent subit le facteur d'échelle Doppler relativiste
+$\sqrt{(1+\beta)/(1-\beta)}$ (satellite en approche) ou $\sqrt{(1-\beta)/(1+\beta)}$
+(satellite en éloignement).
+
+\subsection{Modification du paquet d'ondes}
+Le photon est modélisé par un paquet d'ondes gaussien de largeur spectrale $\Delta\omega$,
+centré sur la fréquence $\omega_0$, avec un temps de cohérence $\tau_c \sim 1/\Delta\omega$.
+La densité spectrale d'amplitude dans le référentiel du satellite s'écrit :
+\begin{equation}
+    \boxed{\tilde{\Psi}(\omega; \tau') =
+    \left(\frac{2}{\pi\,\tau_c'^{2}}\right)^{1/4}
+    \exp\!\left(-\frac{(\omega - \omega_0')^2}{\tau_c'^{\,2}}\right)
+    \exp\!\left(-i\,\omega\,\tau'\right)}
+\end{equation}
+où $\tau_c'$ est le temps de cohérence dans le référentiel du satellite.
+On en déduit que la \textbf{fréquence centrale observée} est décalée selon la
+formule Doppler relativiste (satellite s'éloignant) :
+\begin{equation}
+    \omega_{\text{obs}} = \sqrt{\frac{1-\beta}{1+\beta}}\,\omega_0
+\end{equation}
+
+\section{Introduction et Formalisme}
+Dans le cadre de l'interférence quantique à deux photons sur une lame séparatrice 50/50 (effet Hong-Ou-Mandel), la visibilité $\mathcal{V}$ de l'interférence est définie par le contraste du taux de coïncidences. Elle s'exprime originellement sous la forme d'une intégrale de recouvrement temporel entre la fonction d'onde du photon de référence terrestre $\psi(t)$ et celle du photon spatial décalé par effet Doppler $\tilde{\psi}(t)$ :
+\begin{equation}
+    \mathcal{V} = \left| \int_{-\infty}^{+\infty} \psi(t)\,\tilde{\psi}^*(t) \, dt \right|^2
+\end{equation}
+
+D'après le \textbf{théorème de Parseval-Plancherel}, le produit scalaire de deux fonctions dans le domaine temporel est rigoureusement identique au produit scalaire de leurs transformées de Fourier dans le domaine fréquentiel. Nous pouvons donc réécrire la visibilité en fonction des profils spectraux d'amplitude $\phi(f)$ des photons :
+\begin{equation}
+    \mathcal{V} = \left| \int_{-\infty}^{+\infty} \phi_1(f)\,\phi_2^*(f) \, df \right|^2
+\end{equation}
+
+\section{Modélisation par des paquets d'ondes gaussiens}
+On modélise les photons par des paquets d'ondes de profil gaussien. Soit $\sigma_f$ la largeur spectrale commune des deux photons (liée au temps de cohérence par $\sigma_f \approx \frac{1}{2\pi\tau_c}$).
+
+\begin{itemize}
+    \item \textbf{Photon 1 (Référence au sol) :} Centré sur la fréquence d'émission nominale $f_0$.
+    \begin{equation}
+        \phi_1(f) = \left(\frac{1}{\pi \sigma_f^2}\right)^{1/4} \exp\left( - \frac{(f - f_0)^2}{2\sigma_f^2} \right)
+    \end{equation}
+    
+    \item \textbf{Photon 2 (Reçu du satellite) :} Centré sur la fréquence observée $f_{\text{obs}}$, décalée par l'effet Doppler relativiste.
+    \begin{equation}
+        \phi_2(f) = \left(\frac{1}{\pi \sigma_f^2}\right)^{1/4} \exp\left( - \frac{(f - f_{\text{obs}})^2}{2\sigma_f^2} \right)
+    \end{equation}
+\end{itemize}
+Les coefficients devant les exponentielles assurent la normalisation des états ($\int |\phi(f)|^2 df = 1$).
+
+\section{Calcul de l'intégrale de recouvrement}
+Notons $I$ l'intégrale à l'intérieur du module au carré :
+\begin{equation}
+    I = \int_{-\infty}^{+\infty} \phi_1(f)\,\phi_2^*(f) \, df = \left(\frac{1}{\pi \sigma_f^2}\right)^{1/2} \int_{-\infty}^{+\infty} \exp\left( - \frac{(f - f_0)^2 + (f - f_{\text{obs}})^2}{2\sigma_f^2} \right) df
+\end{equation}
+
+Concentrons-nous sur l'argument de l'exponentielle en développant et réorganisant la somme des carrés :
+\begin{align}
+    (f - f_0)^2 + (f - f_{\text{obs}})^2 &= f^2 - 2ff_0 + f_0^2 + f^2 - 2ff_{\text{obs}} + f_{\text{obs}}^2 \nonumber \\
+    &= 2f^2 - 2f(f_0 + f_{\text{obs}}) + f_0^2 + f_{\text{obs}}^2
+\end{align}
+
+Introduisons la fréquence moyenne $f_m = \frac{f_0 + f_{\text{obs}}}{2}$ et le décalage Doppler $\Delta f = f_{\text{obs}} - f_0$. On peut vérifier l'identité algébrique suivante :
+\begin{equation}
+    2(f - f_m)^2 + \frac{\Delta f^2}{2} = 2\left(f^2 - 2ff_m + f_m^2\right) + \frac{\Delta f^2}{2} = 2f^2 - 2f(f_0 + f_{\text{obs}}) + f_0^2 + f_{\text{obs}}^2
+\end{equation}
+
+En réinjectant cette forme triomphante dans l'expression de notre produit, l'argument de l'exponentielle se sépare proprement en deux parties :
+\begin{equation}
+    \exp\left( - \frac{(f - f_0)^2 + (f - f_{\text{obs}})^2}{2\sigma_f^2} \right) = \exp\left( - \frac{2(f - f_m)^2 + \frac{\Delta f^2}{2}}{2\sigma_f^2} \right) = \exp\left( - \frac{\Delta f^2}{4\sigma_f^2} \right) \cdot \exp\left( - \frac{(f - f_m)^2}{\sigma_f^2} \right)
+\end{equation}
+
+Le terme dépendant du décalage Doppler $\Delta f$ ne dépend pas de la variable d'intégration $f$. Nous pouvons donc le sortir de l'intégrale $I$ :
+\begin{equation}
+    I = \left(\frac{1}{\pi \sigma_f^2}\right)^{1/2} \exp\left( - \frac{\Delta f^2}{4\sigma_f^2} \right) \int_{-\infty}^{+\infty} \exp\left( - \frac{(f - f_m)^2}{\sigma_f^2} \right) df
+\end{equation}
+
+L'intégrale restante est une \textbf{intégrale gaussienne classique} de la forme $\int_{-\infty}^{+\infty} e^{-x^2/a^2} dx = a\sqrt{\pi}$. Ici, avec $a = \sigma_f$, l'intégrale vaut exactement $\sigma_f\sqrt{\pi}$. En simplifiant :
+\begin{equation}
+    I = \left(\frac{1}{\pi \sigma_f^2}\right)^{1/2} \exp\left( - \frac{\Delta f^2}{4\sigma_f^2} \right) \cdot \sigma_f\sqrt{\pi} = 1 \cdot \exp\left( - \frac{\Delta f^2}{4\sigma_f^2} \right)
+\end{equation}
+
+\section{Expression finale de la visibilité}
+Par définition, la visibilité $\mathcal{V}$ correspond au carré du module de cette intégrale $I$. Le terme étant réel et positif, on obtient :
+\begin{equation}
+    \mathcal{V} = |I|^2 = \left[ \exp\left( - \frac{\Delta f^2}{4\sigma_f^2} \right) \right]^2
+    = \exp\left( - 2 \cdot \frac{\Delta f^2}{4\sigma_f^2} \right)
+\end{equation}
+
+Ce qui nous donne la formule finale simplifiée, extrêmement efficace pour le calcul numérique :
+\begin{equation}
+    \boxed{\mathcal{V}(\Delta f) = \exp\left( - \frac{\Delta f^2}{2\sigma_f^2} \right)}
+\end{equation}
+
+\end{document}

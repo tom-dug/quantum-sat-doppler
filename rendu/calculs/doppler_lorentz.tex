@@ -1,0 +1,132 @@
+% Derivation of the Doppler effect on a Gaussian wave packet in the satellite frame
+% Based on handwritten notes (data/lorentz.jpg)
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{physics}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\begin{document}
+
+\section*{Effet Doppler relativiste sur un paquet d'ondes quantique}
+
+\subsection*{Paquet d'ondes gaussien — référentiel terrestre}
+
+On modélise l'impulsion quantique (photon) par un paquet d'ondes gaussien en temps retardé
+$\tau = t - x/c$\,:
+
+\begin{equation}
+    \Psi(\omega_0;\, \tau)
+    = \frac{1}{\sqrt{\pi}\,\tau_c}
+      \, e^{-\tau^2/(2\tau_c^2)}
+      \, e^{i\omega_0 \tau}
+    \label{eq:psi_earth}
+\end{equation}
+
+où $\omega_0$ est la fréquence centrale et $\tau_c$ est la durée de cohérence de l'impulsion.
+Ce paquet est normalisé :
+
+\begin{equation}
+    \int_{-\infty}^{+\infty} \abs{\Psi(\omega_0;\, \tau)}^2 \, d\tau = 1
+\end{equation}
+
+\subsection*{Passage dans le référentiel du satellite}
+
+Soit $\beta = v_\mathrm{sat}/c$ le rapport de la vitesse du satellite à la vitesse de la lumière,
+et $\gamma = 1/\sqrt{1-\beta^2}$ le facteur de Lorentz. La transformation de Lorentz (boost
+selon l'axe de propagation $x$) s'écrit :
+
+\begin{equation}
+    \begin{cases}
+        t' = \gamma\!\left(t - \dfrac{\beta\, x}{c}\right) \\[8pt]
+        x' = \gamma\!\left(x - \beta c\, t\right)
+    \end{cases}
+    \qquad \Longleftrightarrow \qquad
+    \begin{cases}
+        t  = \gamma\!\left(t' + \dfrac{\beta\, x'}{c}\right) \\[8pt]
+        x  = \gamma\!\left(x' + \beta c\, t'\right)
+    \end{cases}
+    \label{eq:lorentz}
+\end{equation}
+
+\subsection*{Transformation du temps retardé}
+
+Le temps retardé dans le référentiel du satellite est $\tau' = t' - x'/c$. En appliquant
+\eqref{eq:lorentz} :
+
+\begin{align}
+    \tau' &= t' - \frac{x'}{c}
+           = \gamma\!\left(t - \frac{\beta x}{c}\right)
+             - \frac{\gamma}{c}\!\left(x - \beta c\, t\right) \notag \\[4pt]
+          &= \gamma t(1 + \beta) - \frac{\gamma x}{c}(1 + \beta)
+           = \gamma(1+\beta)\!\left(t - \frac{x}{c}\right)
+\end{align}
+
+On obtient donc la relation fondamentale :
+
+\begin{equation}
+    \boxed{
+        \tau' = \gamma(1+\beta)\,\tau
+              = \sqrt{\frac{1+\beta}{1-\beta}}\;\tau
+    }
+    \label{eq:tau_boost}
+\end{equation}
+
+ce qui s'inverse en :
+
+\begin{equation}
+    \tau = \gamma(1-\beta)\,\tau'
+         = \sqrt{\frac{1-\beta}{1+\beta}}\;\tau'
+    \label{eq:tau_inverse}
+\end{equation}
+
+\subsection*{Paquet d'ondes dans le référentiel du satellite}
+
+On substitue \eqref{eq:tau_inverse} dans \eqref{eq:psi_earth}. Le changement de variable
+$\tau \to \tau'$ introduit un jacobien $d\tau/d\tau' = \sqrt{(1-\beta)/(1+\beta)}$, ce qui
+modifie la normalisation. Pour conserver $\int|\Psi'|^2 d\tau' = 1$, il faut multiplier par
+$\sqrt{d\tau/d\tau'} = \left(\frac{1-\beta}{1+\beta}\right)^{1/4}$.
+
+On obtient le paquet d'ondes dans le référentiel du satellite :
+
+\begin{equation}
+    \boxed{
+    \Psi'(\omega_0;\, \tau')
+    = \frac{1}{\sqrt{\pi}\,\tau_c}
+      \left(\frac{1-\beta}{1+\beta}\right)^{\!1/4}
+      \exp\!\left[-\frac{1-\beta}{1+\beta}\,\frac{\tau'^2}{2\tau_c^2}\right]
+      \exp\!\left[i\sqrt{\frac{1-\beta}{1+\beta}}\;\omega_0\,\tau'\right]
+    }
+    \label{eq:psi_sat}
+\end{equation}
+
+\subsection*{Interprétation}
+
+L'expression \eqref{eq:psi_sat} est encore un paquet d'ondes gaussien, avec les paramètres
+décalés par effet Doppler relativiste. En définissant le facteur Doppler
+$D = \sqrt{(1+\beta)/(1-\beta)}$, on identifie :
+
+\begin{align}
+    \omega_0' &= \frac{\omega_0}{D} = \omega_0\sqrt{\frac{1-\beta}{1+\beta}}
+    && \text{(décalage vers le rouge pour un satellite qui s'éloigne)} \\[6pt]
+    \tau_c'   &= D\,\tau_c = \tau_c\sqrt{\frac{1+\beta}{1-\beta}}
+    && \text{(dilatation de la durée d'impulsion)}
+\end{align}
+
+de sorte que \eqref{eq:psi_sat} se réécrit sous la forme standard :
+
+\begin{equation}
+    \Psi'(\omega_0';\, \tau')
+    = \frac{1}{\sqrt{\pi}\,\tau_c'}
+      \, e^{-\tau'^2/(2\tau_c'^2)}
+      \, e^{i\omega_0'\,\tau'}
+\end{equation}
+
+La structure gaussienne du paquet est donc préservée par la transformation de Lorentz,
+avec une fréquence et une durée de cohérence toutes deux multipliées par le facteur Doppler.
+
+\end{document}

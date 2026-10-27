@@ -1,0 +1,6 @@
+venv/
+src/__pycache__
+orekit-data.zip
+src/orekit-data.zip
+.vscode
+__pycache__
